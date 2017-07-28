@@ -1,18 +1,23 @@
 const express = require('express')
-const pug = require('pug')
+var bodyParser = require('body-parser')
 
 const app = express()
 
 const port = process.env.PORT || 3000
 
+const urlencodedParser = bodyParser.urlencoded({ extended: false })
+
 app.set('view engine', 'pug')
 
 app.use('/assets', express.static(`${ __dirname }/public`))
 
-const index = pug.renderFile('views/index.pug', {title: 'Allen\'s House', content: 'Hello World'})
+app.post('/postTest', urlencodedParser, function (req, res){
+    res.send(req.body)
+    // res.render('postText', req.body)
+})
 
 app.get('/', function (req, res){
-    res.render('index', {title: 'Allen\'s House', content: 'Hello WOrld'})
+    res.render('index', {title: 'Allen\'s House', content: req.query.content})
 })
 
 app.listen(port)

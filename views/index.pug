@@ -3,3 +3,12 @@ extends framework.pug
 block content
     h1 #{ title }
     div #{ content }
+    form(
+        action = '/postTest'
+        method = 'post'
+    )
+        input(
+            type = 'text'
+            name = 'firstname'
+        )
+        input(type = 'submit')
